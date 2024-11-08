@@ -1,3 +1,4 @@
+@import "choices.js/src/styles/choices";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
@@ -8,10 +9,38 @@ html * {
     font-family: 'Montserrat', sans-serif !important;
 }
 
+html {
+    @apply h-full;
+}
+
 .tournament-container {
     @apply flex items-stretch;
 }
 
+.tournament-container-inner {
+    @apply justify-end w-full;
+}
+
 .tournament-container > div {
     @apply flex flex-col items-center;
+}
+
+.choices__inner {
+    @apply bg-white; 
+}
+
+.choices {
+    @apply border rounded shadow mb-2 flex-grow w-72;
+}
+
+body {
+    @apply overflow-x-hidden flex flex-col h-full;
+}
+
+.one-level {
+    @apply flex;
+}
+
+.one-level > div {
+    @apply justify-start;
 }

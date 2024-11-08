@@ -1,91 +1,34 @@
 <script lang="ts">
-	//import Match from '$lib/components/match_component.svelte';
-	import TournamentBracket from "$lib/components/tournament_bracket.svelte";
     import Fa from 'svelte-fa';
-    import { faDiagramProject, faTrophy, faRankingStar } from '@fortawesome/free-solid-svg-icons';
-    import { UA } from 'country-flag-icons/string/3x2';
+    import { faDiagramProject, faTrophy, faRankingStar, faPlus } from '@fortawesome/free-solid-svg-icons';
+	import { pageTitle } from '$lib/stores';
+	import type { Tournament } from '$lib/models/tournament.js';
 
-	/*const tournamentTree = {
-		children: [
-			{
-				children: [
-					{children: []},
-					{children: []},
-				]
-			},
-			{
-				children: [
-					{children: []},
-					{children: []},
-				]
-			}
-		]
-	};*/
+	pageTitle.set('Strona główna');
 
-	const tournamentTree = {
-		children: [
-			{
-				children: [
-					{
-						children: [
-							{children: []},
-							{children: []}
-						]
-					}, 
-					{
-						children: [
-							{children: []},
-							{children: []}
-						]
-					}
-				]
-			},
-		]
-	};
+	export let data;
+	let tournaments: Tournament[] = data.tournaments;
 </script>
 
 <div class="flex items-center gap-2 mb-2">
 	<Fa icon={faTrophy} />
-	<p class="text-2xl font-semibold">Zwycięzcy</p>
+	<p class="text-2xl font-semibold">Turnieje</p>
+
+	{#if data.user}
+		<a href="tournament/new" class="ml-auto flex items-center gap-2 bg-blue-600 hover:bg-blue-700 rounded shadow px-4 py-2 text-white">
+			<Fa icon={faPlus} />
+			Nowy
+		</a>
+	{/if}
 </div>
 
-<div class="flex items-center gap-2 mb-2">
-	<Fa icon={faDiagramProject} />
-	<p class="text-2xl font-semibold">Drabinka</p>
-</div>
-<div class="overflow-scroll">
-
-<TournamentBracket match={tournamentTree} />
-</div>
-
-<div class="flex items-center gap-2 mb-2">
-	<Fa icon={faRankingStar} />
-	<p class="text-2xl font-semibold">Ranking</p>
-</div>
-<div class="border rounded shadow px-4 py-2">
-	<table>
-		<tr class="text-left border-b divide-x">
-			<th>Lp.</th>
-			<th class="w-full">Zawodnik</th>
-			<th>Wygrane</th>
-			<th class="whitespace-nowrap">Zdobyte punkty</th>
-		</tr>
-		<tr>
-			<td class="text-slate-500">#1</td>
-            <td class="flex gap-2 h-8 items-center">
-				<div class="w-6 rounded overflow-hidden">
-					{@html UA}
-				</div>
-				Młody
-			</td>
-			<td>21</td>
-			<td>37</td>
-		</tr>
-		<tr>
-			<td>#2</td>
-			<td>carcinizer</td>
-			<td>10</td>
-			<td>5</td>
-		</tr>
-	</table>
-</div>
+{#each tournaments as tournament, i}
+	<div class="border rounded shadow px-4 py-2 text-lg hover:bg-gray-50 mb-2">
+		<a href={'/tournament/' + tournament._id}>
+			<p class="text-slate-500 text-base">
+				#{i + 1}
+			</p>
+			{tournament.name}
+		</a>
+	</div>
+{/each}

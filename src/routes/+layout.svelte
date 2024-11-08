@@ -1,58 +1,88 @@
-<script>
+<script lang="ts">
     import "../app.css";
 
     import Fa from 'svelte-fa';
     import { faLock, faCalendar, faClock, faHourglass, faPerson } from '@fortawesome/free-solid-svg-icons';
+    import { navigating } from "$app/stores";
+    import { pageTitle, tournamentDate, tournamentTempo, tournamentPlayersCount } from '$lib/stores';
+    import { fly } from "svelte/transition";
+
+    export let data;
+
+    $: {
+        if ($navigating) {
+            tournamentDate.set(undefined);
+            tournamentTempo.set(undefined);
+            tournamentPlayersCount.set(undefined);
+        }
+    }
 </script>
+
+<svelte:head>
+    <title>{$pageTitle} &mdash; Polyspear Arbiter</title>
+</svelte:head>
   
-<nav class="px-96 shadow">
+<nav class="px-5 sm:px-24 xl:px-48 2xl:px-96 shadow">
     <div class="flex items-center w-full py-2">
-        <p class="text-white font-bold text-xl">Polyspear Arbiter</p>
-        <button class="flex items-center ml-auto py-2 hover:bg-white hover:bg-opacity-15 rounded">
+        <a href="/">
+            <p class="text-white font-bold text-xl">Polyspear Arbiter</p>
+        </a>
+        <a href={data.user !== undefined ? '/logout' : '/login'} data-sveltekit-reload={data.user !== undefined} class="flex items-center ml-auto py-2 hover:bg-white hover:bg-opacity-15 rounded">
             <Fa icon={faLock} color="#ffffff" class="pl-2"/>
-            <p class="text-white text-base px-2">Zaloguj się</p>
-        </button>
+            <p class="text-white text-base px-2">{data.user !== undefined ? 'Wyloguj się' : 'Zaloguj się'}</p>
+        </a>
     </div>
-    <div class="flex items-center pb-4">
-        <p class="text-white text-4xl">IV Turniej Polyspeara</p>
-        <div class="flex items-center ml-auto divide-x">
-            <div>
-                <p class="text-white text-lg text-center">18.10</p>
-                <div class="flex items-center justify-center h-full">
-                    <Fa icon={faCalendar} color="#ffffff" class="pl-2"/>
-                    <p class="text-white font-light text-sm px-2">Data</p>
+    <div class="flex items-center flex-wrap">
+        <p class="text-white text-4xl pb-4">{$pageTitle}</p>
+        <div class="flex items-center md:ml-auto divide-x pb-4">
+            {#if $tournamentDate}
+                <div>
+                    <p class="text-white text-lg text-center">{String($tournamentDate.getDate()).padStart(2, '0')}.{String($tournamentDate.getMonth()).padStart(2, '0')}</p>
+                    <div class="flex items-center justify-center h-full">
+                        <Fa icon={faCalendar} color="#ffffff" class="pl-2"/>
+                        <p class="text-white font-light text-sm px-2">Data</p>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <p class="text-white text-lg text-center">19:00</p>
-                <div class="flex items-center h-full">
-                    <Fa icon={faClock} color="#ffffff" class="pl-2"/>
-                    <p class="text-white font-light text-sm px-2">Godz.</p>
+                <div>
+                    <p class="text-white text-lg text-center">{String($tournamentDate.getHours()).padStart(2, '0')}:{String($tournamentDate.getMinutes()).padStart(2, '0')}</p>
+                    <div class="flex items-center h-full">
+                        <Fa icon={faClock} color="#ffffff" class="pl-2"/>
+                        <p class="text-white font-light text-sm px-2">Godz.</p>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <p class="text-white text-lg text-center">2'+3"</p>
-                <div class="flex items-center h-full">
-                    <Fa icon={faHourglass} color="#ffffff" class="pl-2"/>
-                    <p class="text-white font-light text-sm px-2">Tempo</p>
+            {/if}
+            {#if $tournamentTempo}
+                <div>
+                    <p class="text-white text-lg text-center">{$tournamentTempo}</p>
+                    <div class="flex items-center h-full">
+                        <Fa icon={faHourglass} color="#ffffff" class="pl-2"/>
+                        <p class="text-white font-light text-sm px-2">Tempo</p>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <p class="text-white text-lg text-center">6</p>
-                <div class="flex items-center h-full">
-                    <Fa icon={faPerson} color="#ffffff" class="pl-2"/>
-                    <p class="text-white font-light text-sm px-2">Zawod.</p>
+            {/if}
+            {#if $tournamentPlayersCount}
+                <div>
+                    <p class="text-white text-lg text-center">{$tournamentPlayersCount}</p>
+                    <div class="flex items-center h-full">
+                        <Fa icon={faPerson} color="#ffffff" class="pl-2"/>
+                        <p class="text-white font-light text-sm px-2">Zawod.</p>
+                    </div>
                 </div>
-            </div>
+            {/if}
         </div>
     </div>
 </nav>
-<article class="px-96 pt-6">
-    <slot />
-</article>
+{#key data.url}
+    <article class="px-5 sm:px-24 xl:px-48 2xl:px-96 pt-6 flex-grow" in:fly={{ x: -200, duration: 300, delay: 300 }} out:fly={{ x: 200, duration: 300 }}>
+        <slot />
+    </article>
+{/key}
+<footer class="px-5 sm:px-24 xl:px-48 2xl:px-96 text-white py-2 mt-6">
+    🌀 Wir, śmierdzielu! 🌀
+</footer>
 
 <style>
-    nav {
+    nav, footer {
         background: rgb(2,0,36);
         background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,110,255,1) 100%);
     }
