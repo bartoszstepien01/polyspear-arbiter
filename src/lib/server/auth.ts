@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { JWT_SECRET } from '$env/static/private';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -6,7 +5,6 @@ import User from '$lib/models/user';
 import { error, redirect } from '@sveltejs/kit';
 
 const createUser = async (username: string, password: string) => {
-    await mongoose.connect('mongodb://127.0.0.1:27017/');
 	const user = await User.findOne({ username: username });
 
 	if (user) {
@@ -30,7 +28,6 @@ const createUser = async (username: string, password: string) => {
 };
 
 const loginUser = async (username: string, password: string) => {
-    await mongoose.connect('mongodb://127.0.0.1:27017/');
 	const user = await User.findOne({ username: username });
 
 	if (!user) {
@@ -60,7 +57,6 @@ const loginUser = async (username: string, password: string) => {
 };
 
 const verifyToken = async (token: string) => {
-    await mongoose.connect('mongodb://127.0.0.1:27017/');
 	try {
 		const jwtUser = jwt.verify(token, JWT_SECRET);
 		if (typeof jwtUser === 'string') {
