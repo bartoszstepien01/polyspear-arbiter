@@ -5,7 +5,7 @@ import User from '$lib/models/user';
 import { error, redirect } from '@sveltejs/kit';
 
 const createUser = async (username: string, password: string) => {
-	const user = await User.findOne({ username: username }).cache(0).exec();
+	const user = await User.findOne({ username: username });
 
 	if (user) {
 		return {
@@ -28,7 +28,7 @@ const createUser = async (username: string, password: string) => {
 };
 
 const loginUser = async (username: string, password: string) => {
-	const user = await User.findOne({ username: username }).cache(0).exec();
+	const user = await User.findOne({ username: username });
 
 	if (!user) {
 		return {
@@ -63,7 +63,7 @@ const verifyToken = async (token: string) => {
 			return undefined;
 		}
 
-		const user = await User.findOne({ id: jwtUser.id }).cache(0).exec();
+		const user = await User.findOne({ id: jwtUser.id });
 
 		if (!user) {
 			return undefined;

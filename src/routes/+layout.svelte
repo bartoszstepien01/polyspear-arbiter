@@ -6,6 +6,7 @@
     import { navigating } from "$app/stores";
     import { pageTitle, tournamentDate, tournamentTempo, tournamentPlayersCount } from '$lib/stores';
     import { fly } from "svelte/transition";
+	import { DoubleBounce } from 'svelte-loading-spinners';
 
     export let data;
 
@@ -74,7 +75,13 @@
 </nav>
 {#key data.url}
     <article class="px-5 sm:px-24 xl:px-48 2xl:px-96 pt-6 flex-grow" in:fly={{ x: -200, duration: 300, delay: 300 }} out:fly={{ x: 200, duration: 300 }}>
-        <slot />
+        {#if $navigating}
+            <div class="flex w-full h-full justify-center">
+                <DoubleBounce size="40" color="rgba(37,99,235,1)" unit="px" duration="1s" />
+            </div>
+        {:else}
+            <slot />
+        {/if}
     </article>
 {/key}
 <footer class="px-5 sm:px-24 xl:px-48 2xl:px-96 text-white py-2 mt-6">
