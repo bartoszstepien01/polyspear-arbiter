@@ -3,6 +3,7 @@ import { verifyToken } from '$lib/server/auth';
 import { MONGO_URL, REDIS_URL } from '$env/static/private'; 
 import mongoose from 'mongoose';
 import cachegoose from 'recachegoose';
+import CachemanRedis from 'recacheman-redis';
 
 // These imports are needed for database initialization
 import Player from '$lib/models/player';
