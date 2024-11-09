@@ -48,6 +48,7 @@
 		"mongoose": "^8.8.0",
 		"mongoose-autopopulate": "^1.1.0",
 		"recachegoose": "^11.0.3",
+		"recacheman-redis": "^3.1.0",
 		"svelte-fa": "^4.0.3"
 	}
 }
