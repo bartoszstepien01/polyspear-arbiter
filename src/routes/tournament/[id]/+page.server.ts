@@ -4,7 +4,7 @@ import Tournament from '$lib/models/tournament.js';
 
 export async function load({ params }) {
     try {
-        const tournament = await Tournament.findById(params.id);
+        const tournament = await Tournament.findById(params.id).cache(0);
         if (tournament === null) error(404, { message: 'Nie znaleziono zasobu' });
 
         return {

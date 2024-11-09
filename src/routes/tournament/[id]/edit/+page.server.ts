@@ -9,10 +9,10 @@ export async function load({ params, locals }) {
     requireAuthentication(locals);
 
     try {
-        const tournament = await Tournament.findById(params.id);
+        const tournament = await Tournament.findById(params.id).cache(0);
         if (tournament === null) error(404, { message: 'Nie znaleziono zasobu' });
 
-        const players = await PlayerModel.find({});
+        const players = await PlayerModel.find({}).cache(0);
 
         return {
             tournament: JSON.parse(JSON.stringify(tournament)),
