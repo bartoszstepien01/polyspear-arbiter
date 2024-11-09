@@ -3,15 +3,16 @@ import Tournament from '$lib/models/tournament.js';
 import PlayerModel, { type Player } from '$lib/models/player.js';
 import MatchModel, { type Match } from '$lib/models/match.js';
 import { requireAuthentication } from '$lib/server/auth.js';
+import { withCache, deleteCache } from '$lib/server/cache.js';
 
 export async function load({ params, locals }) {
     requireAuthentication(locals);
 
     try {
-        const players = await PlayerModel.find({});
+        const players = await withCache(async () => await PlayerModel.find({}), 'players');
 
         return {
-            players: JSON.parse(JSON.stringify(players))
+            players: players
         };
     } catch(exception) {
         throw exception;
@@ -76,6 +77,7 @@ export const actions: Actions = {
         // await parent.matchHead.save();
         // @ts-expect-error
         await parent.save();
+        await deleteCache('tournaments');
 
         redirect(302, '/tournament/' + parent._id);
     }

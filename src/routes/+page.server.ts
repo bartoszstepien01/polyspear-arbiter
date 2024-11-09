@@ -1,9 +1,11 @@
 import Tournament from '$lib/models/tournament.js';
+import { withCache } from '$lib/server/cache.js';
 
 export async function load({ params }) {
-    const tournaments = await Tournament.find().cache(0);
+    // TODO: It downloads all data of the tournaments. It's unnecessary
+    const tournaments = await withCache(async () => await Tournament.find(), 'tournaments');
 
     return {
-        tournaments: JSON.parse(JSON.stringify(tournaments))
+        tournaments: tournaments
     };
 }

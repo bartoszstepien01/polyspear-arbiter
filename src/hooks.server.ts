@@ -2,8 +2,7 @@ import type { Handle } from '@sveltejs/kit';
 import { verifyToken } from '$lib/server/auth';
 import { MONGO_URL, REDIS_URL } from '$env/static/private'; 
 import mongoose from 'mongoose';
-import cachegoose from 'recachegoose';
-import CachemanRedis from 'recacheman-redis';
+import { initializeClient } from '$lib/server/cache';
 
 // These imports are needed for database initialization
 import Player from '$lib/models/player';
@@ -25,11 +24,7 @@ const handle: Handle = async ({ event, resolve }) => {
 	return await resolve(event);
 };
 
-cachegoose(mongoose, {
-	engine: 'redis',
-	url: REDIS_URL
-});
-
 await mongoose.connect(MONGO_URL);
+await initializeClient(REDIS_URL);
 
 export { handle };

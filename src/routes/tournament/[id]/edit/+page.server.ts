@@ -4,19 +4,20 @@ import Tournament from '$lib/models/tournament.js';
 import PlayerModel, { type Player } from '$lib/models/player.js';
 import MatchModel, { type Match } from '$lib/models/match.js';
 import { requireAuthentication } from '$lib/server/auth.js';
+import { withCache, deleteCache } from '$lib/server/cache.js';
 
 export async function load({ params, locals }) {
     requireAuthentication(locals);
 
     try {
-        const tournament = await Tournament.findById(params.id).cache(0);
+        const tournament = await withCache(async () => await Tournament.findById(params.id), params.id);
         if (tournament === null) error(404, { message: 'Nie znaleziono zasobu' });
 
-        const players = await PlayerModel.find({}).cache(0);
+        const players = await withCache(async () => await PlayerModel.find({}), 'players');
 
         return {
-            tournament: JSON.parse(JSON.stringify(tournament)),
-            players: JSON.parse(JSON.stringify(players))
+            tournament: tournament,
+            players: players
         };
     } catch(exception) {
         if (exception instanceof mongoose.Error.CastError) error(400, { message: 'Niepoprawne dane' });
@@ -102,6 +103,8 @@ export const actions: Actions = {
 
         //await parent.matchHead.save();
         await parent.save();
+        await deleteCache('tournaments');
+        await deleteCache(id);
 
         redirect(302, '/tournament/' + id);
     },
@@ -114,6 +117,8 @@ export const actions: Actions = {
         if (id === null) error(400, 'Niepoprawne dane');
 
         await Tournament.deleteOne({ _id: id });
+        await deleteCache('tournaments');
+        await deleteCache(id);
 
         redirect(302, '/');
     }
