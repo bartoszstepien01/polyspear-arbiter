@@ -104,6 +104,6 @@
 	}
 
 	table tr:nth-child(even) {
-		@apply bg-slate-100;
+		@apply bg-slate-100 dark:bg-slate-800;
 	}
 </style>

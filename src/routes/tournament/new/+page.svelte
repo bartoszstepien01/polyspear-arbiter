@@ -27,21 +27,21 @@
                     <Fa icon={faFont} />
                     <p class="font-medium">Nazwa turnieju</p>
                 </div>
-                <input name="name" type="text" placeholder="Aa" class="border rounded shadow px-4 py-2">
+                <input name="name" type="text" placeholder="Aa" class="border rounded shadow px-4 py-2 dark:text-black">
             </div>
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <Fa icon={faCalendar} />
                     <p class="font-medium">Data i godzina</p>
                 </div>
-                <input name="date" type="datetime-local" class="border rounded shadow px-4 py-2">
+                <input name="date" type="datetime-local" class="border rounded shadow px-4 py-2 dark:text-black">
             </div>
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <Fa icon={faHourglass} />
                     <p class="font-medium">Tempo</p>
                 </div>
-                <input name="tempo" type="text" placeholder="np. 2'+3&quot;" class="border rounded shadow px-4 py-2">
+                <input name="tempo" type="text" placeholder="np. 2'+3&quot;" class="border rounded shadow px-4 py-2 dark:text-black">
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@
 </div>
 
 {#each tournaments as tournament, i}
-	<div class="border rounded shadow px-4 py-2 text-lg hover:bg-gray-50 mb-2">
+	<div class="border rounded shadow px-4 py-2 text-lg hover:bg-gray-50 hover:dark:bg-slate-800 mb-2">
 		<a href={'/tournament/' + tournament._id}>
 			<p class="text-slate-500 text-base">
 				#{i + 1}
