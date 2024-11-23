@@ -27,21 +27,21 @@
                     <Fa icon={faFont} />
                     <p class="font-medium">Nazwa turnieju</p>
                 </div>
-                <input name="name" type="text" placeholder="Aa" class="border rounded shadow px-4 py-2 dark:text-black">
+                <input name="name" type="text" placeholder="Aa" class="border rounded shadow px-4 py-2 dark:bg-slate-800">
             </div>
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <Fa icon={faCalendar} />
                     <p class="font-medium">Data i godzina</p>
                 </div>
-                <input name="date" type="datetime-local" class="border rounded shadow px-4 py-2 dark:text-black">
+                <input name="date" type="datetime-local" class="border rounded shadow px-4 py-2 dark:bg-slate-800">
             </div>
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <Fa icon={faHourglass} />
                     <p class="font-medium">Tempo</p>
                 </div>
-                <input name="tempo" type="text" placeholder="np. 2'+3&quot;" class="border rounded shadow px-4 py-2 dark:text-black">
+                <input name="tempo" type="text" placeholder="np. 2'+3&quot;" class="border rounded shadow px-4 py-2 dark:bg-slate-800">
             </div>
         </div>
     </div>
@@ -62,5 +62,5 @@
     <BracketCreator playersInTournament={playersInTournament} bind:tournamentBracket={tournamentBracket} />
     <input type="hidden" name="bracket" value={JSON.stringify(tournamentBracket)}>
 
-    <input class="w-full bg-green-600 hover:bg-green-700 text-white rounded shadow mt-2 font-medium py-5 my-5" type="submit" value="Utwórz tuniej">
+    <input class="w-full bg-green-600 hover:bg-green-700 text-white rounded shadow mt-2 font-medium py-5 my-5" type="submit" value="Utwórz turniej">
 </form>

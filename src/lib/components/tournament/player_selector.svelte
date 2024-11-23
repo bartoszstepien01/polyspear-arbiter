@@ -78,7 +78,7 @@
 </script>
 
 <div class="flex w-full gap-2">
-	<select bind:this={playersSelect} on:change={addPlayerToTournament}> </select>
+	<select bind:this={playersSelect} on:change={addPlayerToTournament} class="dark:bg-slate-800"> </select>
 	<div class="bg-blue-600 hover:bg-blue-700 rounded shadow px-3 py-1 relative mb-2">
 		<button
 			class="flex items-center h-full gap-2 mb-1 text-white"
@@ -89,16 +89,16 @@
 		</button>
 		{#if createPlayerMenuVisible}
 			<div
-				class="absolute top-full left-0 bg-white border rounded-b shadow px-2 py-2 flex flex-col gap-2 z-10"
+				class="absolute top-full left-0 bg-white dark:bg-slate-900 border rounded-b shadow px-2 py-2 flex flex-col gap-2 z-10"
 			>
 				<input
 					type="text"
 					placeholder="Imię"
-					class="border rounded shadow px-4 py-2 text-sm"
+					class="border rounded shadow px-4 py-2 text-sm dark:bg-slate-800"
 					bind:value={createPlayerName}
 				/>
 				<select
-					class="border rounded shadow px-4 py-2 text-sm bg-white"
+					class="border rounded shadow px-4 py-2 text-sm bg-white dark:bg-slate-800"
 					bind:value={createPlayerCountry}
 				>
 					<option value="PL">Polska</option>
@@ -154,6 +154,6 @@
 	}
 
 	table tr:nth-child(even) {
-		@apply bg-slate-100;
+		@apply bg-slate-100 dark:bg-slate-800;
 	}
 </style>

@@ -11,7 +11,7 @@
 	$: results = match.results;
 	$: players = match.players;
 
-	$: roundsPerPlayer = results.length / players.length;
+	$: roundsPerPlayer = Math.ceil(results.length / players.length);
 	$: finalResults = results.reduce((acc, num, idx) => {
 		acc[idx % players.length] += num;
 		return acc;

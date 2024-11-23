@@ -22,14 +22,14 @@
 				<Fa icon={faUser} />
 				<p class="font-medium">Nazwa użytkownika</p>
 			</div>
-			<input name="username" type="text" placeholder="Aa" class="border rounded shadow px-4 py-2">
+			<input name="username" type="text" placeholder="Aa" class="border rounded shadow px-4 py-2 dark:bg-slate-800">
 		</div>
 		<div>
 			<div class="flex items-center gap-2 mb-1">
 				<Fa icon={faKey} />
 				<p class="font-medium">Hasło</p>
 			</div>
-			<input name="password" type="password" placeholder="••••• •••" class="border rounded shadow px-4 py-2">
+			<input name="password" type="password" placeholder="••••• •••" class="border rounded shadow px-4 py-2 dark:bg-slate-800">
 		</div>
 	</div>
 	<button

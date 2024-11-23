@@ -53,6 +53,8 @@
 	let matchParent: string;
 
 	let createMatch = async () => {
+		if (matchPlayers.length === 0 || matchName === '') return;
+
 		let node: Match = {
 			_id: undefined,
 			name: matchName,
@@ -64,6 +66,8 @@
 		if (matchParent === '-1') {
 			tournamentBracket = [...tournamentBracket, node];
 		} else {
+			// TODO: It will break if two matches have the same name or 
+			// any of them contains '>'
 			let path = matchParent.split('>');
 			let currentNode = tournamentBracket.find((e) => e.name == path[0]);
 			path.shift();
@@ -87,17 +91,17 @@
 		<input
 			type="text"
 			placeholder="Nazwa meczu"
-			class="border rounded shadow px-4 py-2 mb-2"
+			class="border rounded shadow px-4 py-2 mb-2 dark:bg-slate-800"
 			bind:value={matchName}
 		/>
 		<select multiple bind:this={playersMatchSelect} placeholder="Zawodnicy"> </select>
 		<input
 			type="text"
 			placeholder="Wyniki"
-			class="border rounded shadow px-4 py-2 mb-2"
+			class="border rounded shadow px-4 py-2 mb-2 dark:bg-slate-800"
 			bind:value={matchResults}
 		/>
-		<select class="border rounded shadow px-4 py-2 bg-white mb-2 w-72" bind:value={matchParent}>
+		<select class="border rounded shadow px-4 py-2 bg-white mb-2 w-72 dark:bg-slate-800" bind:value={matchParent}>
 			<option value="-1" selected>Brak rodzica</option>
 			<BracketPathsList node={tournamentBracket} />
 		</select>

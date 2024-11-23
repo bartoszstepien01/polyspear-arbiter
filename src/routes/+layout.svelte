@@ -2,13 +2,31 @@
     import "../app.css";
 
     import Fa from 'svelte-fa';
-    import { faLock, faCalendar, faClock, faHourglass, faPerson } from '@fortawesome/free-solid-svg-icons';
+    import { faLock, faCalendar, faClock, faHourglass, faPerson, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
     import { navigating } from "$app/stores";
     import { pageTitle, tournamentDate, tournamentTempo, tournamentPlayersCount } from '$lib/stores';
     import { fly } from "svelte/transition";
 	import { DoubleBounce } from 'svelte-loading-spinners';
+    import { browser } from "$app/environment";
 
     export let data;
+    let darkThemeOn = true;
+    if (browser) {
+        let userPreference = localStorage.getItem('darkMode');
+
+        if (userPreference === null) {
+            darkThemeOn = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        } else {
+            darkThemeOn = userPreference === 'true';
+        }
+    }
+
+    $: {
+        if (browser) {
+            document.body.classList.toggle('dark', darkThemeOn);
+            localStorage.setItem('darkMode', darkThemeOn.toString());
+        }
+    }
 
     $: {
         if ($navigating) {
@@ -28,7 +46,11 @@
         <a href="/">
             <p class="text-white font-bold text-xl">Polyspear Arbiter</p>
         </a>
-        <a href={data.user !== undefined ? '/logout' : '/login'} data-sveltekit-reload={data.user !== undefined} class="flex items-center ml-auto py-2 hover:bg-white hover:bg-opacity-15 rounded">
+        <button on:click={() => darkThemeOn = !darkThemeOn} class="flex items-center ml-auto py-2 hover:bg-white hover:bg-opacity-15 rounded">
+            <Fa icon={darkThemeOn ? faMoon : faSun} color="#ffffff" class="pl-2"/>
+            <p class="text-white text-base px-2">{darkThemeOn ? 'Ciemny' : 'Jasny'}</p>
+        </button>
+        <a href={data.user !== undefined ? '/logout' : '/login'} data-sveltekit-reload={data.user !== undefined} class="flex items-center py-2 hover:bg-white hover:bg-opacity-15 rounded">
             <Fa icon={faLock} color="#ffffff" class="pl-2"/>
             <p class="text-white text-base px-2">{data.user !== undefined ? 'Wyloguj się' : 'Zaloguj się'}</p>
         </a>

@@ -14,7 +14,7 @@
     let tournament: Tournament = data.tournament;
     let allPlayers: Player[] = data.players;
     let playersInTournament: Player[] = tournament.players;
-    let tournamentBracket: Match | undefined = tournament.matchHead;
+    let tournamentBracket: Match[] | undefined = tournament.matchHead;
 </script>
 
 <form action="?/edit" method="post">
@@ -31,21 +31,21 @@
                     <Fa icon={faFont} />
                     <p class="font-medium">Nazwa turnieju</p>
                 </div>
-                <input name="name" type="text" placeholder="Aa" value={tournament.name} class="border rounded shadow px-4 py-2">
+                <input name="name" type="text" placeholder="Aa" value={tournament.name} class="border rounded shadow px-4 py-2 dark:bg-slate-800">
             </div>
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <Fa icon={faCalendar} />
                     <p class="font-medium">Data i godzina</p>
                 </div>
-                <input name="date" type="datetime-local" value={new Date(tournament.date).toISOString().slice(0, 16)} class="border rounded shadow px-4 py-2">
+                <input name="date" type="datetime-local" value={new Date(tournament.date).toISOString().slice(0, 16)} class="border rounded shadow px-4 py-2 dark:bg-slate-800">
             </div>
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <Fa icon={faHourglass} />
                     <p class="font-medium">Tempo</p>
                 </div>
-                <input name="tempo" type="text" placeholder="np. 2'+3&quot;" value={tournament.tempo} class="border rounded shadow px-4 py-2">
+                <input name="tempo" type="text" placeholder="np. 2'+3&quot;" value={tournament.tempo} class="border rounded shadow px-4 py-2 dark:bg-slate-800">
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@ export const actions: Actions = {
 
         await Tournament.deleteOne({ _id: id });
 
-        // TODO: Fix it for God's sake
+        // TODO: Do editing tournaments the normal way
         // Why is it needed: Mongoose pre middleware is supposed to delete all matches in
         // the tournament after executing the line above. However, since middleware functions
         // are async the await in the aforementioned line doesn't 'wait' for them to finish.

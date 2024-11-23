@@ -5,6 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: Fix CSS and create UI components */
+
 html * {
     font-family: 'Montserrat', sans-serif !important;
     @apply dark:text-white dark:border-slate-500 dark:divide-slate-500;
@@ -44,4 +46,16 @@ body {
 
 .one-level > div {
     @apply justify-start;
+}
+
+.choices__inner {
+    @apply dark:bg-slate-800 dark:border-slate-500;
+}
+
+.choices__list * {
+    @apply dark:bg-slate-800 !important;
+}
+
+.choices__input {
+    @apply dark:bg-slate-700 !important;
 }

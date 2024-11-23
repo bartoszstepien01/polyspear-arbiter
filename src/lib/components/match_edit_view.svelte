@@ -9,7 +9,7 @@
 	$: results = match?.results ?? [];
 	$: players = match?.players ?? [];
 
-	$: roundsPerPlayer = results.length / players.length;
+	$: roundsPerPlayer = Math.ceil(results.length / players.length);
 
     let leftClasses = '';
     if (leftBinding === 'straight') leftClasses = 'bottom-0 border-t';
@@ -56,7 +56,7 @@
     };
 
     let playerRemove = (i: number) => {
-        if (match === undefined) return;
+        if (match === undefined || players.length === 1) return;
 
         let roundsCount = roundsPerPlayer;
         let previousPlayerCount = match.players.length;
@@ -70,7 +70,7 @@
     };
 
     let roundRemove = (i: number) => {
-        if (match === undefined) return;
+        if (match === undefined || roundsPerPlayer === 1) return;
 
         match.results.splice(i * match.players.length, match.players.length);
 
@@ -100,7 +100,7 @@
             </div>
             {#each match.players as player, i}
                 <div class="flex gap-2 h-8 items-center">
-                    <select class="border shadow rounded bg-white px-2 py-1 w-24" on:change={(e) => playerChange(e, i)}>
+                    <select class="border shadow rounded bg-white px-2 py-1 w-24 dark:bg-slate-800" on:change={(e) => playerChange(e, i)}>
                         {#each playersInTournament as p, k}
                             <option value={k} selected={p._id === player._id}>{p.name}</option>
                         {/each}
@@ -109,7 +109,7 @@
                     <button on:click|preventDefault={() => playerRemove(i)}>U</button>
                     <div class="flex divide-x ml-auto">
                         {#each {length: roundsPerPlayer} as _, k}
-                            <input type="number" class="w-10 text-center border rounded shadow" value={match.results[i + k * match.players.length]} on:change={(e) => scoreChange(e, i + k * (match?.players.length ?? 0))}>
+                            <input type="number" class="w-10 text-center border rounded shadow dark:bg-slate-800" value={match.results[i + k * match.players.length]} on:change={(e) => scoreChange(e, i + k * (match?.players.length ?? 0))}>
                         {/each}
                     </div>
                 </div>
