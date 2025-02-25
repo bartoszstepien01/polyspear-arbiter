@@ -1,38 +1,45 @@
-# create-svelte
+# Polyspear Arbiter
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+A tournament management system designed for tracking [Polyspear](https://github.com/Wiolarz/Polyspear) tournament results
 
-## Creating a project
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- Light/dark mode
+- Responsive interface
+- Built-in Redis caching
+- Account system
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
 
-## Developing
+## Environment Variables
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+To run this project, you will need to add the following environment variables to your .env file (see also .env.example)
 
-```bash
-npm run dev
+`MONGO_URL`
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+`JWT_SECRET`
 
-## Building
+`REDIS_URL`
 
-To create a production version of your app:
+
+## Running
+
+You can run this project using docker-compose
 
 ```bash
-npm run build
+  git clone https://github.com/bartoszstepien01/polyspear-arbiter.git
+  cd polyspear-arbiter
+  docker-compose up
 ```
 
-You can preview the production build with `npm run preview`.
+or using npm
+```bash
+  git clone https://github.com/bartoszstepien01/polyspear-arbiter.git
+  cd polyspear-arbiter
+  npm install
+  npm run dev
+```
+    
+## License
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+[MIT](https://choosealicense.com/licenses/mit/)
